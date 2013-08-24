@@ -1,0 +1,27 @@
+= Peakium PHP API Bindings
+
+== About
+
+This is an experimental release of converted PHP version of {Peakium Ruby bindings}[https://github.com/peakium/peakium-ruby].
+
+== Installation
+
+  1. Add peakium-php to your application's composer.json.
+    {
+      // ...
+      "require": {
+        "peakium/peakium-php": "master-dev"
+      },
+      // ...
+    }
+  2. Run composer intall
+
+== Requirements
+
+* php 5.2
+* php_curl extension
+* php_json extension
+
+== Development
+
+Test cases can be run with: `bundle exec rake test`
