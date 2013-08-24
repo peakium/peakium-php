@@ -17,4 +17,12 @@ class Webhook extends \Peakium\ApiResource
 
 		return parent::__construct($id, $api_key);
 	}
+
+	public function object_endpoint_url()
+	{
+		if (!($url = $this->url))
+			throw new InvalidRequestError(sprintf('Could not determine which endpoint URL to request: %s instance has invalid url: %s', self::class_name(), $url), 'url');
+
+		return self::endpoint_url . '/' . $url;
+	}
 }
