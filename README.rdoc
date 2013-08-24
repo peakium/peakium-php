@@ -10,7 +10,7 @@ This is an experimental release of converted PHP version of {Peakium Ruby bindin
     {
       // ...
       "require": {
-        "peakium/peakium-php": "master-dev"
+        "peakium/peakium-php": "dev-master"
       },
       // ...
     }
@@ -21,7 +21,3 @@ This is an experimental release of converted PHP version of {Peakium Ruby bindin
 * php 5.2
 * php_curl extension
 * php_json extension
-
-== Development
-
-Test cases can be run with: `bundle exec rake test`
