@@ -1,28 +1,26 @@
 {
-  "name": "peakium/peakium-php",
-  "description": "Peakium API PHP Bindings",
-  "keywords": [
-    "peakium",
-    "subscription processing",
-    "api"
-  ],
-  "homepage": "http://peakium.com/",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Peakium and contributors",
-      "homepage": "https://github.com/peakium/peakium-php/contributors"
-    }
-  ],
-  "require": {
-    "php": ">=5.2",
-    "ext-curl": "*",
-    "ext-json": "*"
-  },
-  "require-dev": {
-    "vierbergenlars/simpletest": "*"
-  },
-  "autoload": {
-    "classmap": ["lib/Peakium/"]
-  }
+	"name": "peakium/peakium-php",
+	"description": "Peakium API PHP Bindings",
+	"keywords": ["peakium", "payment", "subscription processing", "api"],
+	"homepage": "http://peakium.com/",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Peakium and contributors",
+			"homepage": "https://github.com/peakium/peakium-php/contributors"
+		}
+	],
+	"require": {
+		"php": ">=5.2",
+		"ext-curl": "*",
+		"ext-json": "*"
+	},
+	"require-dev": {
+		"vierbergenlars/simpletest": "*"
+	},
+	"autoload": {
+		"psr-0": {
+			"Peakium": "lib"
+		}
+	}
 }
