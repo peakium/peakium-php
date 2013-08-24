@@ -38,13 +38,13 @@ require(dirname(__FILE__) . '/Peakium/Errors/Extras/NoMethodError.php');
 require(dirname(__FILE__) . '/Peakium/Errors/Extras/NotImplementedError.php');
 require(dirname(__FILE__) . '/Peakium/Errors/Extras/SSLCertificateNotVerifiedError.php');
 
-abstract class Peakium
+class Peakium
 {
 	public static $api_key;
 	public static $api_base = 'https://secure.peakium.com/api';
 	public static $api_version = null;
 	public static $verify_ssl_certs = true;
-	public static $ssl_bundle_path = '/data/ca-certificates.crt';
+	public static $ssl_bundle_path = 'data/ca-certificates.crt';
 	const VERSION = '0.0.0';
 
 	public static function api_url($endpoint_url='')
@@ -145,10 +145,10 @@ abstract class Peakium
 
 	        self::$no_verify = true;
 	    }
-	    elseif (!\Peakium\Util::file_readable(__DIR__ . '/..' . self::$ssl_bundle_path) && !self::$no_bundle)
+	    elseif (!\Peakium\Util::file_readable(dirname(__FILE__) . '/' . self::$ssl_bundle_path) && !self::$no_bundle)
 	    {
 	    	error_log(sprintf("WARNING: Running without SSL cert verification " .
-				"because %s isn't readable", self::$ssl_bundle_path));
+				"because %s isn't readable", dirname(__FILE__) . '/' . self::$ssl_bundle_path));
 
 			self::$no_bundle = true;
 	    }
