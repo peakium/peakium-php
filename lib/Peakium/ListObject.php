@@ -17,7 +17,7 @@ class ListObject extends PeakiumObject implements \IteratorAggregate, \Countable
 	// So we can do foreach, etc
 	public function getIterator()
 	{
-		return new \Iterator($this->data);
+		return new \ArrayIterator($this->data);
 	}
 
 	public function all($params=array(), $api_key=null)
