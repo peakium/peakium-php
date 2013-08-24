@@ -4,16 +4,6 @@ namespace Peakium;
 
 class ListObject extends PeakiumObject implements \IteratorAggregate, \Countable
 {
-	public function all($params=array(), $api_key=null)
-	{
-		$args = func_get_args();
-
-		// Add the endpoint URL to use
-		array_unshift($args, $this->_endpoint_url);
-
-		return call_user_func_array(array('\Peakium\OperationList', 'all'), $args);
-	}
-
 	public function offsetGet($k)
 	{
 		switch(gettype($k)):
