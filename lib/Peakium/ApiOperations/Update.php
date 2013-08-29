@@ -15,7 +15,7 @@ class OperationUpdate
 			}
 			$values.delete('id');
 
-			list($response, $api_key) = \Peakium::request('post', $endpoint_url, $object::$api_key, $values);
+			list($response, $api_key) = \Peakium::request('post', $endpoint_url, $object->_api_key, $values);
 			$object->refresh_from($response, $api_key);
 		}
 

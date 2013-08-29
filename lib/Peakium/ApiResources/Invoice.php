@@ -16,7 +16,7 @@ class Invoice extends \Peakium\ApiResource
 
 	public function pay()
 	{
-		list($response, $api_key) = \Peakium::request('post', $this->pay_url(), $this->api_key);
+		list($response, $api_key) = \Peakium::request('post', $this->pay_url(), $this->_api_key);
 		$this->refresh_from($response, $api_key);
 		return $this;
 	}

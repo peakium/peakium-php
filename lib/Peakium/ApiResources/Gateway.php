@@ -12,7 +12,7 @@ class Gateway extends \Peakium\ApiResource
 
 	public function set_default()
 	{
-		list($response, $api_key) = \Peakium::request('post', $this->set_default_url(), $this->api_key);
+		list($response, $api_key) = \Peakium::request('post', $this->set_default_url(), $this->_api_key);
 		$this->refresh_from($response, $api_key);
 		return $this;
 	}

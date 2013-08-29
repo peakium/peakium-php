@@ -8,12 +8,12 @@ class Customer extends \Peakium\ApiResource
 
 	public function subscriptions()
 	{
-		return Subscription::all(array('customer' => $this->id, $this->api_key));
+		return Subscription::all(array('customer' => $this->id, $this->_api_key));
 	}
 
 	public function cancel_subscription($token)
 	{
-		list($response, $api_key) = \Peakium::request('delete', $this->subscription_url($token), $this->api_key);
+		list($response, $api_key) = \Peakium::request('delete', $this->subscription_url($token), $this->_api_key);
 		$this->refresh_from($response, $api_key);
 		return $this;
 	}

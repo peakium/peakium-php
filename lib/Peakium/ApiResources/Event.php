@@ -8,14 +8,14 @@ class Event extends \Peakium\ApiResource
 
 	public function validate($data)
 	{
-		list($response, $api_key) = \Peakium::request('post', $this->validate_url(), $this->api_key, $data);
+		list($response, $api_key) = \Peakium::request('post', $this->validate_url(), $this->_api_key, $data);
 		$this->refresh_from($response, $api_key);
 		return $this;
 	}
 
 	public function send($params=array())
 	{
-		list($response, $api_key) = \Peakium::request('post', $this->send_url(), $this->api_key, $params);
+		list($response, $api_key) = \Peakium::request('post', $this->send_url(), $this->_api_key, $params);
 		$this->refresh_from($response, $api_key);
 		return $this;
 	}
