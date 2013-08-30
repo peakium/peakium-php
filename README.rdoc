@@ -16,6 +16,24 @@ This is an experimental release of converted PHP version of {Peakium Ruby bindin
     }
   2. Run composer intall
 
+== Example usage
+
+Retrieve a customer:
+
+  $customer = \Peakium\Customer::retrieve("test_customer");
+
+Create a submission form:
+
+  $submission_form = \Peakium\SubmissionForm::build('create-subscription', $args);
+
+Cancel a subscription:
+
+  $customer->cancel_subscription("test_subscription");
+
+== Errors
+
+The library will throw exceptions when errors are encountered, e.g. if a resource doesn't exist.
+
 == Requirements
 
 * php 5.2
