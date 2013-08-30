@@ -64,7 +64,7 @@ class PeakiumObject implements \ArrayAccess
 		// which don't persist as transient
 
 		foreach ($removed as $k) {
-//			if (self::$_permanentAttributes->includes($k))
+//			if (self::$_permanent_attributes->includes($k))
 //			continue;
 			unset($this->_values[$k]);
 			$this->_transient_values->add($k);
@@ -72,7 +72,7 @@ class PeakiumObject implements \ArrayAccess
 		}
 
 		foreach ($values as $k => $v) {
-//			if (self::$_permanentAttributes->includes($k))
+//			if (self::$_permanent_attributes->includes($k))
 //			continue;
 			$this->_values[$k] = Util::convert_to_peakium_object($v, $api_key);
 			$this->_transient_values->delete($k);
@@ -160,4 +160,3 @@ class PeakiumObject implements \ArrayAccess
 		return array_keys($this->_values);
 	}
 }
-

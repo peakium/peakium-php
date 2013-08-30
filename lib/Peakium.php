@@ -54,26 +54,28 @@ class Peakium
 
 	public static function request($method, $endpoint_url, $api_key, $params=array(), $headers=array())
 	{
-		if (!$api_key)
-			$api_key = self::$api_key;
-
-		if (!$api_key)
+		if (!$api_key && !($api_key = self::$api_key))
+		{
 			throw new \Peakium\AuthenticationError('No API key provided. ' .
 				'Set your API key using "\Peakium::$api_key = \'<API-KEY>\';". ' .
 				'You can generate API keys from the Peakium web interface. ' .
 				'Go to https://manage.peakium.com/.');
+		}
 
 		if (preg_match('/\s/', $api_key))
+		{
 			throw new \Peakium\AuthenticationError('Your API key is invalid, as it contains ' .
-        'whitespace. (HINT: You can double-check your API key from the ' .
-        'Peakium web interface. Go to https://manage.peakium.com/.)');
+		        'whitespace. (HINT: You can double-check your API key from the ' .
+        		'Peakium web interface. Go to https://manage.peakium.com/.)');
+    	}
 
 		$request_opts = array('verify_ssl' => false);
 
-		if (self::ssl_preflight_passed())
+		$ssl_bundle_path = dirname(__FILE__) . '/' . self::$ssl_bundle_path;
+		if (self::ssl_preflight_passed($ssl_bundle_path))
 		{
 			$request_opts['verify_ssl'] = static::$verify_ssl_certs;
-			$request_opts['ssl_ca_file'] = static::$ssl_bundle_path;
+			$request_opts['ssl_ca_file'] = $ssl_bundle_path;
 		}
 
 		$params = \Peakium\Util::objects_to_ids($params);
@@ -136,19 +138,19 @@ class Peakium
 	protected static $no_bundle = false;
 	protected static $no_verify = false;
 
-	private static function ssl_preflight_passed()
+	private static function ssl_preflight_passed($ssl_bundle_path)
 	{
 		if (!self::$verify_ssl_certs && !self::$no_verify)
 		{
       		error_log("WARNING: Running without SSL cert verification. " .
-				"Execute '\Peakium::\$verify_ssl_certs = true' to enable verification.");
+				"Execute '\Peakium::\$verify_ssl_certs = true;' to enable verification.");
 
 	        self::$no_verify = true;
 	    }
-	    elseif (!\Peakium\Util::file_readable(dirname(__FILE__) . '/' . self::$ssl_bundle_path) && !self::$no_bundle)
+	    elseif (!\Peakium\Util::file_readable($ssl_bundle_path) && !self::$no_bundle)
 	    {
 	    	error_log(sprintf("WARNING: Running without SSL cert verification " .
-				"because %s isn't readable", dirname(__FILE__) . '/' . self::$ssl_bundle_path));
+				"because %s isn't readable", $ssl_bundle_path));
 
 			self::$no_bundle = true;
 	    }
@@ -314,15 +316,12 @@ class Peakium
 				throw new ApiError(sprintf('Unrecognized method %s', $opts['method']));
 		endswitch;
 
-		$curl_opts[CURLOPT_URL] = $url;
 		$curl_opts[CURLOPT_RETURNTRANSFER] = true;
+		$curl_opts[CURLOPT_URL] = $url;
 		$curl_opts[CURLOPT_CONNECTTIMEOUT] = $opts['open_timeout'];
 		$curl_opts[CURLOPT_TIMEOUT] = $opts['timeout'];
-		$curl_opts[CURLOPT_RETURNTRANSFER] = true;
 		$curl_opts[CURLOPT_HTTPHEADER] = self::_convert_headers_to_curl_format($opts['headers']);
-
-		if (!self::$verify_ssl_certs)
-			$curl_opts[CURLOPT_SSL_VERIFYPEER] = false;
+		$curl_opts[CURLOPT_SSL_VERIFYPEER] = $opts['verify_ssl'];
 
 		curl_setopt_array($curl, $curl_opts);
 		$rbody = curl_exec($curl);
@@ -333,10 +332,9 @@ class Peakium
 			$errno == CURLE_SSL_PEER_CERTIFICATE ||
 			$errno == 77 // CURLE_SSL_CACERT_BADFILE (constant not defined in PHP though)
 		) {
-			array_push($headers, self::_convert_headers_to_curl_format(array('x_peakium_client_info' => '{"ca":"using Peakium-supplied CA bundle"}')));
+			array_push($opts['headers'], self::_convert_headers_to_curl_format(array('x_peakium_client_info' => '{"ca":"using Peakium-supplied CA bundle"}')));
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($curl, CURLOPT_CAINFO,
-						__DIR__ . '/..' . self::$ssl_bundle_path);
+			curl_setopt($curl, CURLOPT_CAINFO, $opts['ssl_ca_file']);
 
 			$rbody = curl_exec($curl);
 		}

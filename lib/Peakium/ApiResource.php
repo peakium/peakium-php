@@ -35,7 +35,7 @@ abstract class ApiResource extends PeakiumObject
 
 	public function refresh()
 	{
-		list($response, $api_key) = \Peakium::request('get', $this->object_endpoint_url(), $this->api_key, $this->retrieve_options);
+		list($response, $api_key) = \Peakium::request('get', $this->object_endpoint_url(), $this->_api_key, $this->_retrieve_options);
 		$this->refresh_from($response, $api_key);
 		return $this;
 	}
