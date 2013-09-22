@@ -16,7 +16,7 @@
 		"ext-json": "*"
 	},
 	"require-dev": {
-		"vierbergenlars/simpletest": "*"
+		"simpletest/simpletest": "*"
 	},
 	"autoload": {
 		"psr-0": {
