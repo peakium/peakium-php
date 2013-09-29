@@ -18,6 +18,10 @@ This is an experimental release of converted PHP version of {Peakium Ruby bindin
 
 == Example usage
 
+Set API key:
+
+  \Peakium.::$api_key = "you_secret_api_key";
+
 Retrieve a customer:
 
   $customer = \Peakium\Customer::retrieve("test_customer");
