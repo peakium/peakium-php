@@ -45,7 +45,7 @@ abstract class Util
 				return array_map($func, $resp);
 			case 'object':
 				// Just an array there is no "object" attribute
-				if (!isset($resp->object))
+				if (!isset($resp->object) || !is_string($resp->object))
 					return get_object_vars($resp);
 
 				$class = '\\' . __NAMESPACE__ . '\\' . (isset($resp->object) && isset(self::$object_classes[$resp->object]) ? self::$object_classes[$resp->object] : 'PeakiumObject');
