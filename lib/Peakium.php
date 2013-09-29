@@ -175,7 +175,7 @@ class Peakium
 		);
 	}
 
-	public static function uri_encode($params)
+	public static function uri_encode($params, $prefix = null)
 	{
 		if (!is_array($params))
 			return $params;
