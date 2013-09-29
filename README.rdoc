@@ -20,7 +20,7 @@ This is an experimental release of converted PHP version of {Peakium Ruby bindin
 
 Set API key:
 
-  \Peakium.::$api_key = "you_secret_api_key";
+  \Peakium::$api_key = "you_secret_api_key";
 
 Retrieve a customer:
 
