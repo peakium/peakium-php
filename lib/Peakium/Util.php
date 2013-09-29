@@ -11,7 +11,7 @@ abstract class Util
 				$res = array();
 				foreach($object as $k => $v)
 				{
-					if ($v != null)
+					if ($v !== null)
 					{
 						$res[$k] = self::objects_to_ids($v);
 					}

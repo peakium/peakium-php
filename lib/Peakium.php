@@ -177,7 +177,25 @@ class Peakium
 
 	public static function uri_encode($params)
 	{
-		return http_build_query($params, '', '&');
+		if (!is_array($params))
+			return $params;
+
+		$uri_encoded_array = array();
+		foreach ($params as $k => $v) {
+			if ($v === null)
+				continue;
+
+			if ($prefix)
+				$k = $prefix . '[' . $k . ']';
+
+			if (is_array($v)) {
+				$uri_encoded_array[] = self::uri_encode($v, $k);
+			} else {
+				$uri_encoded_array[] = urlencode($k) . '=' . urlencode($v);
+			}
+		}
+
+		return implode("&", $uri_encoded_array);
 	}
 
 	private static function request_headers($api_key)
