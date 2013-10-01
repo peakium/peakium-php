@@ -13,6 +13,6 @@ class SubmissionForm extends \Peakium\ApiResource
 
 	private static function build_url($type)
 	{
-		return self::endpoint_url() . '/' . $type;
+		return self::endpoint_url() . '/' . urlencode($type);
 	}
 }

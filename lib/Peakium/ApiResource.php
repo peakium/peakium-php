@@ -22,7 +22,7 @@ abstract class ApiResource extends PeakiumObject
 		if (get_called_class() == __CLASS__)
 			throw new NotImplementedError('APIResource is an abstract class. You should perform actions on its subclasses');
 
-		return '/v1/' . \Peakium\Util::camel_to_snake_case(self::class_name()) . 's';
+		return '/v1/' . urlencode(\Peakium\Util::camel_to_snake_case(self::class_name())) . 's';
 	}
 
 	public function object_endpoint_url()
@@ -30,7 +30,7 @@ abstract class ApiResource extends PeakiumObject
 		if (!($id = $this->id))
 			throw new InvalidRequestError(sprintf('Could not determine which endpoint URL to request: %s instance has invalid ID: %s', self::class_name(), $id), 'id');
 
-		return self::endpoint_url() . '/' . $id;
+		return self::endpoint_url() . '/' . urlencode($id);
 	}
 
 	public function refresh()

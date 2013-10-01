@@ -21,6 +21,6 @@ class Subscription extends \Peakium\ApiResource
 		if (!($customer = $this->customer))
 			throw new InvalidRequestError(sprintf('Could not determine which endpoint URL to request: %s instance has invalid customer: %s', self::class_name(), $customer), 'customer');
 
-		return $customer->object_endpoint_url() . '/subscriptions/' . $token;
+		return $customer->object_endpoint_url() . '/subscriptions/' . urlencode($token);
 	}
 }

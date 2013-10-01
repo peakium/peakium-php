@@ -20,7 +20,7 @@ class Customer extends \Peakium\ApiResource
 
 	private function subscription_url($token)
 	{
-		return $this->subscriptions_url() . '/' . $token;
+		return $this->subscriptions_url() . '/' . urlencode($token);
 	}
 
 	private function subscriptions_url()
