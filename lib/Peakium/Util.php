@@ -41,7 +41,7 @@ abstract class Util
 	{
 		switch(gettype($resp)):
 			case 'array':
-				$func = function($v) use (&$api_key) { return self::convert_to_peakium_object($v, $api_key); };
+				$func = function($v) use (&$api_key) { return Util::convert_to_peakium_object($v, $api_key); };
 				return array_map($func, $resp);
 			case 'object':
 				// Just an array there is no "object" attribute
