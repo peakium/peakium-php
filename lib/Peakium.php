@@ -310,7 +310,7 @@ class Peakium
 					"If this problem persists, let us know at contact@peakium.com.";
 		endswitch;
 
-		throw new \Peakium\APIConnectionError($message + "\n\n(Network error: " . $e->getMessage() . ")");
+		throw new \Peakium\APIConnectionError($message . "\n\n(Network error: " . $e->getMessage() . ")");
 	}
 
 	public static function _curl_request($opts)
