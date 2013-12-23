@@ -328,7 +328,7 @@ class Peakium
 				break;
 			case 'delete':
 				$curl_opts[CURLOPT_CUSTOMREQUEST] = 'DELETE';
-				$url = '?' . $opts['payload'];
+				$url .= '?' . $opts['payload'];
 				break;
 			default:
 				throw new ApiError(sprintf('Unrecognized method %s', $opts['method']));
