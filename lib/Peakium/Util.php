@@ -113,11 +113,9 @@ abstract class Util
 
 	public static function camel_to_snake_case($string)
 	{
-		return preg_replace(
-			'/(^|[a-z])([A-Z])/e', 
-			'strtolower(strlen("\\1") ? "\\1_\\2" : "\\2")',
-			$string 
-		); 
+		return preg_replace_callback('/(^|[a-z])([A-Z])/', function($m) {
+			return strtolower(strlen($m[1]) ? "$m[1]_$m[2]" : "$m[2]");
+		}, $string); 
 	}
 
 
