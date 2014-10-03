@@ -5,7 +5,9 @@ namespace Peakium;
 class Subscription extends \Peakium\ApiResource
 {
 	public static $include = array(
-								'List',
+		'List',
+		'Update',
+		'Delete',
 	);
 
 	public static function retrieve($id, $api_key = null)

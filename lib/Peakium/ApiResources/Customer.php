@@ -4,7 +4,11 @@ namespace Peakium;
 
 class Customer extends \Peakium\ApiResource
 {
-	public static $include = array('List');
+	public static $include = array(
+		'Create',
+		'List',
+		'Update'
+	);
 
 	public function subscriptions()
 	{

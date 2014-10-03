@@ -5,9 +5,10 @@ namespace Peakium;
 class Gateway extends \Peakium\ApiResource
 {
 	public static $include = array(
-								'Create',
-								'List',
-								'Update'
+		'Create',
+		'List',
+		'Update',
+		'Delete'
 	);
 
 	public function set_default()

@@ -5,7 +5,8 @@ namespace Peakium;
 class Invoice extends \Peakium\ApiResource
 {
 	public static $include = array(
-								'List',
+		'List',
+		'Create',
 	);
 
 	public static function overdue($params=array(), $api_key=null)
